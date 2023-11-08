@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>One-Button</title>
+    <title>It-Bop</title>
     <meta
       name="viewport"
       content="width=device-width, height=device-height,
@@ -15,23 +15,47 @@
     <script src="https://unpkg.com/crisp-game-lib@1.1.1/docs/bundle.js"></script>
 
 <script>
-title = "One Button";
+title = "It Bop";
 
-description = `Use one button
+description = ` 
 `;
 
-characters = [];
+characters = [
+`
 
-options = {};
+`
+];
 
+const G = {
+	WIDTH: 100,
+	HEIGHT: 150,
+};
+
+options = {
+  viewSize: {x: G.WIDTH, y: G.HEIGHT},
+  theme: "shapeDark",
+  isPlayingBgm: true,
+  isReplayEnabled: true,
+};
+
+green = {
+    pos: vec(G.WIDTH * 0.5, G.HEIGHT * 0.3)
+};
 function update() {
-  if (!ticks) {
-  }
+    if (!ticks) {
+        
+    }
+    color("green");
+    box(green.pos, 14);
 }
+
+// box()
+    
+
 
 addEventListener("load", onLoad);
 </script>
 
   </head>
-  <body style="background: #ddd"></body>
+  <body style="background: #eb5757"></body>
 </html>
