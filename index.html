@@ -41,7 +41,16 @@ options = {
 green = {
     pos: vec(G.WIDTH * 0.5, G.HEIGHT * 0.3)
 };
+red = {
+    pos: vec(G.WIDTH * 0.5, G.HEIGHT * 0.3)
+};
 
+
+let timeHolder = true;
+let spawnHolder = true;
+let rngTimer;
+let spawnX;
+let spawnY;
 
 function update() {
     if (!ticks) {
@@ -57,18 +66,43 @@ function update() {
         );
     }
 
+
     color("green");
     box(green.pos, 14);
+
+    color("red");
+    box(red.pos, 14);
+
+
+    if (timeHolder == true){//get a random float to represent the random delay before square turns green
+      rngTimer = rnd(1,6);
+      timeHolder = false;
+    }
+
+    if (spawnHolder == true){//get a random float to decide where to spawn clickable
+      spawnX = rnd(1,G.WIDTH);
+      spawnY = rnd(1,G.HEIGHT)
+      spawnHolder = false;
+    }
+
+    if (spawnHolder == false){
+      clickable = {
+        pos: vec(spawnX, spawnY)
+      };
+      color ("yellow");
+      box(clickable.pos, 6);
+    }
+    
 
     click(); 
 
     function click(){
       const difference1 = Math.abs(input.pos.x - green.pos.x);
       const difference2 = Math.abs(input.pos.y - green.pos.y)
-      //if mouse is clicked on enemy swap places with it
-      if(input.isJustPressed && (difference1 <=5 )&& difference2 <=5){
+      //if mouse is on the green do something
+      if(input.isJustPressed && (difference1 <=6 )&& difference2 <=6){
         //do something
-        color("red");
+        color("yellow");
         particle(green.pos);
       }
   }
