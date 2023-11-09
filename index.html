@@ -92,20 +92,21 @@ function update() {
       color ("yellow");
       box(clickable.pos, 6);
     }
-    
+
 
     click(); 
 
     function click(){
-      const difference1 = Math.abs(input.pos.x - green.pos.x);
-      const difference2 = Math.abs(input.pos.y - green.pos.y)
+      const difference1 = Math.abs(input.pos.x - clickable.pos.x);
+      const difference2 = Math.abs(input.pos.y - clickable.pos.y)
       //if mouse is on the green do something
-      if(input.isJustPressed && (difference1 <=6 )&& difference2 <=6){
+      if(input.isJustPressed && (difference1 <=3 )&& difference2 <=3){
         //do something
-        color("yellow");
-        particle(green.pos);
+        color("green");
+        particle(clickable.pos);
+        //remove the clickable here and then make spawnHolder false to spawn a new one
       }
-  }
+    }
 }
 
     
