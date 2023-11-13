@@ -18,6 +18,7 @@
 title = "It Bop";
 
 description = ` 
+Click Green
 `;
 
 characters = [
@@ -51,9 +52,17 @@ let spawnHolder = true;
 let rngTimer;
 let spawnX;
 let spawnY;
+let randColor;
+let newColor;
+let nonClickable;
+let deathticks;
+let ticks4death;
+
 
 function update() {
     if (!ticks) {
+      deathticks = 6;
+      ticks4death = 0;
       color("green");
         // Generate particles
         particle(
@@ -65,13 +74,15 @@ function update() {
             PI/4  // The emitting width
         );
     }
+    newColor = true;
 
 
-    color("green");
-    box(green.pos, 14);
 
-    color("red");
-    box(red.pos, 14);
+    // color("green");
+    // box(green.pos, 14);
+
+    // color("red");
+    // box(red.pos, 14);
 
 
     if (timeHolder == true){//get a random float to represent the random delay before square turns green
@@ -82,31 +93,109 @@ function update() {
     if (spawnHolder == true){//get a random float to decide where to spawn clickable
       spawnX = rnd(1,G.WIDTH);
       spawnY = rnd(1,G.HEIGHT)
+      spawnX2 = rnd(1,G.WIDTH);
+      spawnY2 = rnd(1,G.HEIGHT)
+      spawnX3 = rnd(1,G.WIDTH);
+      spawnY3 = rnd(1,G.HEIGHT)
+      spawnX4 = rnd(1,G.WIDTH);
+      spawnY4 = rnd(1,G.HEIGHT)
+      spawnX5 = rnd(1,G.WIDTH);
+      spawnY5 = rnd(1,G.HEIGHT)
       spawnHolder = false;
     }
 
     if (spawnHolder == false){
       clickable = {
         pos: vec(spawnX, spawnY)
-      };
-      color ("yellow");
-      box(clickable.pos, 6);
-    }
 
-
-    click(); 
-
-    function click(){
-      const difference1 = Math.abs(input.pos.x - clickable.pos.x);
-      const difference2 = Math.abs(input.pos.y - clickable.pos.y)
-      //if mouse is on the green do something
-      if(input.isJustPressed && (difference1 <=3 )&& difference2 <=3){
-        //do something
-        color("green");
-        particle(clickable.pos);
-        //remove the clickable here and then make spawnHolder false to spawn a new one
       }
+      nonClickable2 = {
+        pos: vec(spawnX2, spawnY2)
+      
+      };
+      nonClickable3 = {
+        pos: vec(spawnX3, spawnY3)
+      
+      };
+      nonClickable4 = {
+        pos: vec(spawnX4, spawnY4)
+      
+      };
+      nonClickable5 = {
+        pos: vec(spawnX5, spawnY5)
+      
+      };
+
+
+
+        color ("green");
+        box(clickable.pos,6);
+        color ("yellow");
+        box(nonClickable2.pos,6);
+        color ("yellow");
+        box(nonClickable3.pos,6);
+        color ("yellow");
+        box(nonClickable4.pos,6);
+        color ("yellow");
+        box(nonClickable5.pos,6);
+        // console.log("green3", randColor)
     }
+
+
+
+
+    
+    const difference1 = Math.abs(input.pos.x - clickable.pos.x);
+    const difference2 = Math.abs(input.pos.y - clickable.pos.y)
+    //if mouse is on the green do something
+    if(input.isJustPressed && (difference1 <=3 )&& difference2 <=3){
+      //do something
+      color("green");
+      particle(clickable.pos);
+
+
+      newColor = false;
+      addScore(5);
+      ticks4death = 0;
+      play("coin");
+      spawnHolder = true;
+
+      //remove the clickable here and then make spawnHolder false to spawn a new one
+  }
+  const difference3 = Math.abs(input.pos.x - nonClickable2.pos.x);
+  const difference4 = Math.abs(input.pos.y - nonClickable2.pos.y)
+  if( input.isPressed && (difference3 <=3 )&& difference4 <=3){
+    play("laser");
+    end();
+  }
+  const difference5 = Math.abs(input.pos.x - nonClickable3.pos.x);
+  const difference6 = Math.abs(input.pos.y - nonClickable3.pos.y)
+  if( input.isPressed && (difference5 <=3 )&& difference6 <=3){
+    play("laser");
+    end();
+  }
+  const difference7 = Math.abs(input.pos.x - nonClickable4.pos.x);
+  const difference8 = Math.abs(input.pos.y - nonClickable4.pos.y)
+  if( input.isPressed && (difference7 <=3 )&& difference8 <=3){
+    play("laser");
+    end();
+  }
+  const difference9 = Math.abs(input.pos.x - nonClickable5.pos.x);
+  const difference10 = Math.abs(input.pos.y - nonClickable5.pos.y)
+  if( input.isPressed && (difference9 <=3 )&& difference10 <=3){
+    play("laser");
+    end();
+  }
+
+  
+
+
+
+if (ticks4death > deathticks) {
+        end();
+      }
+ticks4death += 1-.9;
+
 }
 
     
